@@ -34,34 +34,30 @@ O segundo parâmetro `[count]` indica em quais situações esse _effect_ deve ex
 
 Outra dica é que você pode passar um array vazio `[]` ao hook como segundo parâmetro garantindo que o mesmo irá executar apenas **uma vez** na inicialização do componente (tipo um `componentDidMount`):
 
-const Repositories = () => {
+```
+  const Repositories = () => {
 
-const [repositories, setRepositories] = useState([]);
+  const [repositories, setRepositories] = useState([]);
 
-useEffect(() => {
+  useEffect(() => {
+    async function loadRepositories() {
+      const response = await axios.get('https://api.github.com/orgs/rocketseat/repos');
 
-async function loadRepositories() {
+      setRepositories(response.data);
+    }
 
-const response = await axios.get('https://api.github.com/orgs/rocketseat/repos');
+    loadRepositories();
+  }, []);
 
-setRepositories(response.data);
-
-}
-
-loadRepositories();
-
-}, []);
-
-return (...);
-
+  return (...);
 };
+```
 
 Veja que criamos uma nova função `loadRepositories` dentro do `useEffect`, isso se deve basicamente porque não é uma boa prática adicionarmos um `async` à função que o `useEffect` recebe como parâmetro.
 
 ### _useMemo_
 
 ```
-
 const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
 
 ```
