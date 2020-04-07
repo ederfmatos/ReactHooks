@@ -8,13 +8,17 @@
 
 O hook mais comum utilizado para controlarmos alguma variável de estado dentro de um functional component no React. Para utilizar definimos:
 
-const [count, setCount] = useState(0);
+```
+  const [count, setCount] = useState(0);
+```
 
 O primeiro valor `count` representa o valor do estado que será manipulado pela função `setCount` recebida através da desestruturação realizada no `useState`. O valor `0` repassado ao hook é o valor inicial do estado.
 
 Então, para manipularmos o valor de `count` podemos simplesmente executar:
 
+```
 <button onClick={() => setCount(count + 1)}>+</button>
+```
 
 #### _UseEffect_
 
@@ -22,11 +26,11 @@ Uma das grandes deficiência dos funcional components sempre foi lidar com _side
 
 Imagine que no exemplo acima do `count` gostaríamos de atualizar o título de página toda vez que a informação de count atualizar. Dentro do nosso funcional component (antes do `return`) definimos:
 
-useEffect(() => {
-
-document.title = `Você clicou ${count} vezes.`
-
-}, [count])
+```
+  useEffect(() => {
+    document.title = `Você clicou ${count} vezes.`
+  }, [count])
+```
 
 Veja que o hook recebe como primeiro parâmetro uma função (assíncrona ou não) que é executada após inicialização e atualização do componente, mais ou menos o que temos com o `componentDidMount` e `componentDidUpdate` no stateful component.
 
