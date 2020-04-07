@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 
 function App() {
 	const [techs, setTechs] = useState([]);
 	const [newTech, setNewTech] = useState('');
 	const techsSize = useMemo(() => techs.length, [techs]);
 
-	function handleAdd() {
+	const handleAdd = useCallback(() => {
 		setTechs([...techs, newTech]);
 		setNewTech('');
-	}
+	}, [techs, newTech]);
 
 	// Component didMount
 	useEffect(() => {
