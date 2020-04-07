@@ -32,12 +32,12 @@ O segundo parâmetro `[count]` indica em quais situações esse _effect_ deve ex
 
 Outra dica é que você pode passar um array vazio `[]` ao hook como segundo parâmetro garantindo que o mesmo irá executar apenas **uma vez** na inicialização do componente (tipo um `componentDidMount`):
 
-    const  Repositories  =  ()  =>  {
-    const  [repositories, setRepositories]  =  useState([]);
+        const  Repositories  =  ()  =>  {
+        const  [repositories, setRepositories]  =  useState([]);
 
     	useEffect(()  =>  {
     		async  function  loadRepositories()  {
-    			const response =  await axios.get('[https://api.github.com/orgs/rocketseat/repos](https://api.github.com/orgs/rocketseat/repos)');
+    			const response =  await axios.get('https://api.github.com/orgs/rocketseat/repos');
     			setRepositories(response.data);
     		 }
 
@@ -48,3 +48,17 @@ Outra dica é que você pode passar um array vazio `[]` ao hook como segundo par
     };
 
 Veja que criamos uma nova função `loadRepositories` dentro do `useEffect`, isso se deve basicamente porque não é uma boa prática adicionarmos um `async` à função que o `useEffect` recebe como parâmetro.
+
+### _useMemo_
+
+```
+const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+```
+
+Retorna um valor memorizado.
+
+Recebe uma função `create` e um array como argumentos. O `useMemo` só recuperará o valor memorizado quando o array receber uma atualização. Esta otimização ajuda a evitar cálculos caros em cada renderização.
+
+Lembre-se de que a função passada para `useMemo` será executa durante a renderização. Não faça nada lá que você normalmente não faria ao renderizar. Por exemplo, os `side effects` pertencem a `useEffect`, não à `useMemo`.
+
+Se nenhum array for fornecida, um novo valor será calculado em cada renderização.
